@@ -28,7 +28,7 @@ app.post('/books', async (req, res) => {
   });
 
   try {
-    const newBook = await bookModal.save();
+    const newBook = await book.save();
     res.status(201).json(newBook);
   } catch (error) {
     res.status(400).json({ message: error.message });
