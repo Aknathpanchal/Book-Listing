@@ -16,7 +16,7 @@ const BookListing = () => {
   const ITEMS_PER_PAGE = 10;
 
   // API URL - replace with your backend URL when deployed
-  const API_URL = 'http://localhost:3001/books';
+  const API_URL = 'https://book-listing-sigma.vercel.app/books';
 
   const lastBookElementRef = React.useCallback(node => {
     if (loading) return;
