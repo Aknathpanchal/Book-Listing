@@ -12,6 +12,8 @@ const BookListing = () => {
   const [hasMore, setHasMore] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   const observer = useRef();
   const ITEMS_PER_PAGE = 10;
 
@@ -136,9 +138,9 @@ const BookListing = () => {
           </h1>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex-Column space-y-4">
           {/* Add Book Form */}
-          <div className="w-1/3">
+          {/* <div className="">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
                 <PlusCircle className="mr-2 text-blue-600" />
@@ -193,10 +195,90 @@ const BookListing = () => {
                 </button>
               </form>
             </div>
+          </div> */}
+
+<div>
+      {/* Trigger Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition w-[100%]"
+      >
+        <PlusCircle className="inline-block mr-2" />
+        Add Member
+      </button>
+
+      {/* Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Modal Content */}
+            <h2 className="text-xl font-semibold mb-4 flex items-center">
+              <PlusCircle className="mr-2 text-blue-600" />
+              Add New Book
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter book title"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Author</label>
+                <input
+                  type="text"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter author name"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Description</label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={3}
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter book description"
+                />
+              </div>
+              {error && (
+                <div className="bg-red-50 p-4 rounded-lg flex items-center">
+                  <AlertCircle className="text-red-500 mr-2" />
+                  <span className="text-red-700">{error}</span>
+                </div>
+              )}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-[1.02]"
+              >
+                <div className="flex items-center justify-center">
+                  <PlusCircle className="w-5 h-5 mr-2" />
+                  {loading ? "Adding..." : "Add Book"}
+                </div>
+              </button>
+            </form>
           </div>
+        </div>
+      )}
+    </div>
 
           {/* Book List */}
-          <div className="w-2/3">
+          <div className="">
             <div className="space-y-4">
               {books.length === 0 && !loading ? (
                 <div className="bg-white rounded-xl shadow-lg p-8 text-center">
